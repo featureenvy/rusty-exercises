@@ -1,0 +1,5 @@
+[package]
+
+name = "rusty-rosalind"
+version = "0.0.1"
+authors = ["Andreas Arnold <andreas@featureenvy.com>"]
