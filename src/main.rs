@@ -4,15 +4,23 @@ use std::io::BufferedReader;
 mod counting_dna;
 mod dna_rna_transcription;
 mod dna_reverse_complement;
+mod rabbit_fib;
+mod calculate_max_gc_content;
 
-fn read_file(path: &str) -> String {
+fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
 
     // Read the file contents into a string, returns `IoResult<String>`
-    match file.read_line() {
+    match file.read_to_string() {
         Err(why) => std::string::as_string(why.desc).clone(),
         Ok(string) =>  string,
     }
+}
+
+fn read_file(path: &str) -> String {
+    let input = read_full_file(path);
+
+    input.lines().take(1).collect()
 }
 
 #[allow(unused_must_use)]
@@ -39,6 +47,14 @@ fn dna_reverse_complement(input: &str) -> String {
     dna_reverse_complement::run(input)
 }
 
+fn rabbit_fib(generations: uint, offsprings: uint) -> uint {
+    rabbit_fib::run(generations, offsprings)
+}
+
+fn calculate_max_gc_content(input: &str) -> (String, f64) {
+    calculate_max_gc_content::run(input)
+}
+
 fn run_test(file: &str, f: |&str| -> String) {
     let input = read_file(file);
     let result = f(input.as_slice());
@@ -54,11 +70,23 @@ fn main() {
     println!("{}", rna_transcription(input.as_slice()));
 
     run_test("/Users/zumda/Downloads/rosalind_revc(1).txt", dna_reverse_complement);
+
+    println!("{}", rabbit_fib(32, 3));
+
+    let input = read_full_file("/Users/zumda/Downloads/rosalind_fasta.txt");
+    let (identifier, percentage) = calculate_max_gc_content(input.as_slice());
+    println!("{}\n{}", identifier, percentage)
 }
 
 #[cfg(test)]
 mod test {
-    use super::{counting_dna, rna_transcription, dna_reverse_complement, read_file};
+    use super::{counting_dna,
+                rna_transcription,
+                dna_reverse_complement,
+                rabbit_fib,
+                calculate_max_gc_content,
+
+                read_file};
     use counting_dna::Nucleotides;
 
     #[test]
@@ -80,7 +108,20 @@ mod test {
     }
 
     #[test]
+    fn ex_4_rabbit_fib() {
+        assert_eq!(19, rabbit_fib(5, 3));
+    }
+
+    #[test]
+    fn ex_5_calculate_gc_content() {
+        let (ex_id, ex_perc) = calculate_max_gc_content(
+            "Rosalind_0001\nAGCTATAG\nRosalind_0002\nAGAATTAAT");
+        assert_eq!("Rosalind_0001", ex_id);
+        assert_eq!(37.5, ex_perc);
+    }
+
+    #[test]
     fn can_read_file() {
-        assert!(read_file("src/main.rs").contains("fn maain()"));
+        assert!(read_file("src/main.rs").contains("use std::io::File;"));
     }
 }
