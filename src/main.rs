@@ -55,7 +55,8 @@ fn calculate_max_gc_content(input: &str) -> (String, f64) {
     calculate_max_gc_content::run(input)
 }
 
-fn run_test(file: &str, f: |&str| -> String) {
+fn run_test<F>(file: &str, f: F)
+    where F : FnOnce(&str) -> String {
     let input = read_file(file);
     let result = f(input.as_slice());
     write_output(file, result.as_slice());
