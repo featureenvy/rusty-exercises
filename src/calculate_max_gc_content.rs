@@ -1,4 +1,5 @@
 use std::default::Default;
+use std::collections::HashMap;
 
 static ABSOLUTE_ERROR: f64 = 1000000.0;
 
@@ -34,15 +35,12 @@ fn read_fasta(input: &str) -> Vec<FastaData> {
 
 pub fn run(input: &str) -> (String, f64) {
     let fasta_data = read_fasta(input);
-    let gc_content_percentage = fasta_data.iter()
-        .map(|data| calc_percentage(data.dna_strand.as_slice()))
-        .collect::<Vec<i32>>();
+    let id_and_percentages = fasta_data.iter()
+        .fold(HashMap::new(),|mut map, data|
+              {map.insert(data.id.clone(), calc_percentage(data.dna_strand.as_slice())); map});
+    let (max_strand, max_percentage) = id_and_percentages.iter().max_by(|&(_, value)| value).unwrap();
 
-    let max_percentage = gc_content_percentage.iter().max().unwrap();
-    let max_id = fasta_data[gc_content_percentage.iter()
-                            .position(|p| p == max_percentage).unwrap()].id.clone();
-
-    (max_id, *max_percentage as f64 / ABSOLUTE_ERROR)
+    (max_strand.clone(), *max_percentage as f64 / ABSOLUTE_ERROR)
 }
 
 #[cfg(test)]
