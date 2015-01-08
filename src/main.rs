@@ -74,7 +74,7 @@ fn main() {
 
     println!("{}", rabbit_fib(32, 3));
 
-    let input = read_full_file("/Users/zumda/Downloads/rosalind_fasta.txt");
+    let input = read_full_file("/Users/zumda/Downloads/rosalind_gc.txt");
     let (identifier, percentage) = calculate_max_gc_content(input.as_slice());
     println!("{}\n{}", identifier, percentage)
 }
@@ -116,7 +116,7 @@ mod test {
     #[test]
     fn ex_5_calculate_gc_content() {
         let (ex_id, ex_perc) = calculate_max_gc_content(
-            "Rosalind_0001\nAGCTATAG\nRosalind_0002\nAGAATTAAT");
+            ">Rosalind_0001\nAGCTATAG\n>Rosalind_0002\nAGAATTAAT");
         assert_eq!("Rosalind_0001", ex_id);
         assert_eq!(37.5, ex_perc);
     }
