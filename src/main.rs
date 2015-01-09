@@ -1,3 +1,5 @@
+#![allow(unstable)]
+
 use std::io::File;
 use std::io::BufferedReader;
 
@@ -6,6 +8,7 @@ mod dna_rna_transcription;
 mod dna_reverse_complement;
 mod rabbit_fib;
 mod calculate_max_gc_content;
+mod hamming_distance;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
@@ -47,12 +50,16 @@ fn dna_reverse_complement(input: &str) -> String {
     dna_reverse_complement::run(input)
 }
 
-fn rabbit_fib(generations: uint, offsprings: uint) -> uint {
+fn rabbit_fib(generations: u32, offsprings: u32) -> u64 {
     rabbit_fib::run(generations, offsprings)
 }
 
 fn calculate_max_gc_content(input: &str) -> (String, f64) {
     calculate_max_gc_content::run(input)
+}
+
+fn hamming_distance(input: &str) -> u32 {
+    hamming_distance::run(input)
 }
 
 fn run_test<F>(file: &str, f: F)
@@ -76,7 +83,10 @@ fn main() {
 
     let input = read_full_file("/Users/zumda/Downloads/rosalind_gc.txt");
     let (identifier, percentage) = calculate_max_gc_content(input.as_slice());
-    println!("{}\n{}", identifier, percentage)
+    println!("{}\n{}", identifier, percentage);
+
+    let input = read_full_file("/Users/zumda/Downloads/rosalind_hamming.txt");
+    println!("Hamming distance: {}", hamming_distance(input.as_slice()));
 }
 
 #[cfg(test)]
@@ -86,6 +96,7 @@ mod test {
                 dna_reverse_complement,
                 rabbit_fib,
                 calculate_max_gc_content,
+                hamming_distance,
 
                 read_file};
     use counting_dna::Nucleotides;
@@ -119,6 +130,12 @@ mod test {
             ">Rosalind_0001\nAGCTATAG\n>Rosalind_0002\nAGAATTAAT");
         assert_eq!("Rosalind_0001", ex_id);
         assert_eq!(37.5, ex_perc);
+    }
+
+    #[test]
+    fn ex_6_hamming_distance() {
+        let distance = hamming_distance("GAGCCTACTAACGGGAT\nCATCGTAATGACGGCCT");
+        assert_eq!(7, distance);
     }
 
     #[test]

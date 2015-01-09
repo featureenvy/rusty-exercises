@@ -3,10 +3,10 @@ use std::fmt;
 
 #[derive(Eq, Default)]
 pub struct Nucleotides {
-    pub a: uint,
-    pub c: uint,
-    pub g: uint,
-    pub t: uint,
+    pub a: usize,
+    pub c: usize,
+    pub g: usize,
+    pub t: usize,
 }
 
 impl PartialEq for Nucleotides {
@@ -18,7 +18,7 @@ impl PartialEq for Nucleotides {
     }
 }
 
-impl fmt::Show for Nucleotides {
+impl fmt::String for Nucleotides {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{} {} {} {}", self.a, self.c, self.g, self.t)
     }
