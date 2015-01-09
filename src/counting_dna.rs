@@ -24,6 +24,12 @@ impl fmt::String for Nucleotides {
     }
 }
 
+impl fmt::Show for Nucleotides {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{} {} {} {}", self.a, self.c, self.g, self.t)
+    }
+}
+
 fn count_nucelotide(count: &mut Nucleotides, next: char) -> &mut Nucleotides {
     match next {
         'A' => count.a += 1,

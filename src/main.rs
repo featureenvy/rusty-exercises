@@ -85,7 +85,7 @@ fn main() {
     let (identifier, percentage) = calculate_max_gc_content(input.as_slice());
     println!("{}\n{}", identifier, percentage);
 
-    let input = read_full_file("/Users/zumda/Downloads/rosalind_hamming.txt");
+    let input = read_full_file("/Users/zumda/Downloads/rosalind_hamm.txt");
     println!("Hamming distance: {}", hamming_distance(input.as_slice()));
 }
 
@@ -98,7 +98,7 @@ mod test {
                 calculate_max_gc_content,
                 hamming_distance,
 
-                read_file};
+                read_full_file};
     use counting_dna::Nucleotides;
 
     #[test]
@@ -140,6 +140,6 @@ mod test {
 
     #[test]
     fn can_read_file() {
-        assert!(read_file("src/main.rs").contains("use std::io::File;"));
+        assert!(read_full_file("src/main.rs").contains("use std::io::File;"));
     }
 }
