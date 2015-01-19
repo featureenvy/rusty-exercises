@@ -1,5 +1,7 @@
 #![allow(unstable)]
 
+extern crate regex;
+
 use std::io::File;
 use std::io::BufferedReader;
 
@@ -10,6 +12,7 @@ mod rabbit_fib;
 mod calculate_max_gc_content;
 mod hamming_distance;
 mod mendel;
+mod rna_translation;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
@@ -90,6 +93,11 @@ fn main() {
     println!("Hamming distance: {}", hamming_distance(input.as_slice()));
 
     println!("Mendel's number is {}", mendel::run(15, 24, 25));
+
+    run_test("/Users/zumda/Downloads/rosalind_prot.txt", rna_translation::run);
+
+    //let input = read_full_file("/Users/zumda/Downloads/rosalind_prot.txt");
+    //println!("RNA Translation: {}", rna_translation::run(input.as_slice()))
 }
 
 #[cfg(test)]
@@ -104,6 +112,7 @@ mod test {
                 read_full_file};
     use counting_dna::Nucleotides;
     use mendel;
+    use rna_translation;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -146,6 +155,12 @@ mod test {
     fn ex_7_mendel() {
         let result = mendel::run(2, 2, 2);
         assert_eq!(11.75/15.0, result);
+    }
+
+    #[test]
+    fn ex_8_rna_translation() {
+        let result = rna_translation::run("AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA");
+        assert_eq!("MAMAPRTEINSTRING", result);
     }
 
     #[test]

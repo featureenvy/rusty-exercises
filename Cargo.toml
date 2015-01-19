@@ -7,3 +7,6 @@ authors = ["Andreas Arnold <andreas@featureenvy.com>"]
 [[bin]]
 
 name = "rosalind"
+
+[dependencies]
+regex = "0.1.8"
