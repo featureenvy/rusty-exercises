@@ -9,6 +9,7 @@ mod dna_reverse_complement;
 mod rabbit_fib;
 mod calculate_max_gc_content;
 mod hamming_distance;
+mod mendel;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
@@ -87,6 +88,8 @@ fn main() {
 
     let input = read_full_file("/Users/zumda/Downloads/rosalind_hamm.txt");
     println!("Hamming distance: {}", hamming_distance(input.as_slice()));
+
+    println!("Mendel's number is {}", mendel::run(15, 24, 25));
 }
 
 #[cfg(test)]
@@ -100,6 +103,7 @@ mod test {
 
                 read_full_file};
     use counting_dna::Nucleotides;
+    use mendel;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -136,6 +140,12 @@ mod test {
     fn ex_6_hamming_distance() {
         let distance = hamming_distance("GAGCCTACTAACGGGAT\nCATCGTAATGACGGCCT");
         assert_eq!(7, distance);
+    }
+
+    #[test]
+    fn ex_7_mendel() {
+        let result = mendel::run(2, 2, 2);
+        assert_eq!(11.75/15.0, result);
     }
 
     #[test]
