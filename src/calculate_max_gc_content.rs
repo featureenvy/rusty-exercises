@@ -19,8 +19,8 @@ fn read_fasta(input: &str) -> Vec<FastaData> {
     let mut result: Vec<FastaData> = Vec::new();
 
     for line in input.lines() {
-        match line.slice_to(1) {
-            ">" => result.push(FastaData { id: String::from_str(line.slice_from(1)), .. Default::default() }),
+        match &line[..1] {
+            ">" => result.push(FastaData { id: String::from_str(&line[1..]), .. Default::default() }),
             "A" | "G" | "C" | "T" => {
                 let data = result.last_mut().unwrap();
                 let strand = data.dna_strand.clone();

@@ -18,13 +18,13 @@ impl PartialEq for Nucleotides {
     }
 }
 
-impl fmt::String for Nucleotides {
+impl fmt::Display for Nucleotides {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{} {} {} {}", self.a, self.c, self.g, self.t)
     }
 }
 
-impl fmt::Show for Nucleotides {
+impl fmt::Debug for Nucleotides {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{} {} {} {}", self.a, self.c, self.g, self.t)
     }
