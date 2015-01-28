@@ -13,6 +13,7 @@ mod calculate_max_gc_content;
 mod hamming_distance;
 mod mendel;
 mod rna_translation;
+mod find_motifs;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
@@ -98,6 +99,10 @@ fn main() {
 
     //let input = read_full_file("/Users/zumda/Downloads/rosalind_prot.txt");
     //println!("RNA Translation: {}", rna_translation::run(input.as_slice()))
+
+    println!("Motif positions:");
+    // TODO
+    //run_test("/Users/zumda/Downloads/rosalind_subs.txt", find_motifs::run);
 }
 
 #[cfg(test)]
@@ -113,6 +118,7 @@ mod test {
     use counting_dna::Nucleotides;
     use mendel;
     use rna_translation;
+    use find_motifs;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -161,6 +167,12 @@ mod test {
     fn ex_8_rna_translation() {
         let result = rna_translation::run("AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA");
         assert_eq!("MAMAPRTEINSTRING", result);
+    }
+
+    #[test]
+    fn ex_9_motif_serach() {
+        let result = find_motifs::run("GATATATGCATATACTT", "ATAT");
+        assert_eq!("2 4 10", result);
     }
 
     #[test]
