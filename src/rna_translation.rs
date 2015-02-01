@@ -28,7 +28,7 @@ pub fn run(input: &str) -> String {
     for codon in input.as_bytes().chunks(3) {
         let codon_str = str::from_utf8(codon).unwrap();
 
-        match table.get(codon_str).unwrap().as_slice() {
+        match &table.get(codon_str).unwrap()[] {
             "Stop" => break,
             i @ _ => output.push(i.char_at(0))
         }

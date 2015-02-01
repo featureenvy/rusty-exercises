@@ -37,7 +37,7 @@ pub fn run(input: &str) -> (String, f64) {
     let fasta_data = read_fasta(input);
     let id_and_percentages = fasta_data.iter()
         .fold(HashMap::new(),|mut map, data|
-              {map.insert(data.id.clone(), calc_percentage(data.dna_strand.as_slice())); map});
+              {map.insert(data.id.clone(), calc_percentage(&data.dna_strand[])); map});
     let (max_strand, max_percentage) = id_and_percentages.iter().max_by(|&(_, value)| value).unwrap();
 
     (max_strand.clone(), *max_percentage as f64 / ABSOLUTE_ERROR)
@@ -60,7 +60,7 @@ mod test {
 
         #[test]
         fn finds_all_sequences() {
-            let input = ">Rosalind_0001\nAGCTATAG\n>Rosalind_0002\nAGAATTAAT\nAGT".as_slice();
+            let input = ">Rosalind_0001\nAGCTATAG\n>Rosalind_0002\nAGAATTAAT\nAGT";
             let result = read_fasta(input);
 
             assert_eq!(2, result.len());
@@ -68,7 +68,7 @@ mod test {
 
         #[test]
         fn concats_the_full_sequence() {
-            let input = ">Rosalind_0001\nAGCT\nAGCT\nAGC".as_slice();
+            let input = ">Rosalind_0001\nAGCT\nAGCT\nAGC";
             let result = read_fasta(input);
 
             assert_eq!("AGCTAGCTAGC", result.first().unwrap().dna_strand);

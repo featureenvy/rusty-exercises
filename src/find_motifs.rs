@@ -4,7 +4,7 @@ pub fn run(input: &str, pattern: &str) -> String {
     slice_search(input, pattern).iter()
         .fold(String::new(),
               |mut str, next| {
-                  str.push_str(next.to_string().as_slice());
+                  str.push_str(&next.to_string());
                   str})
 }
 

@@ -70,8 +70,8 @@ fn hamming_distance(input: &str) -> u32 {
 fn run_test<F>(file: &str, f: F)
     where F : FnOnce(&str) -> String {
     let input = read_file(file);
-    let result = f(input.as_slice());
-    write_output(file, result.as_slice());
+    let result = f(&input);
+    write_output(file, &result);
 }
 
 fn main() {
