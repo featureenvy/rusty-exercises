@@ -1,9 +1,9 @@
-#![allow(unstable)]
+#![allow(dead_code)]
+#![feature(core,collections,io,path)]
 
 extern crate regex;
 
-use std::io::File;
-use std::io::BufferedReader;
+use std::old_io::{File, BufferedReader, Append, Write};
 
 mod counting_dna;
 mod dna_rna_transcription;
@@ -33,7 +33,7 @@ fn read_file(path: &str) -> String {
 
 #[allow(unused_must_use)]
 fn write_output(path: &str, output: &str) {
-    let mut file = match File::open_mode(&Path::new(path), std::io::Append, std::io::Write) {
+    let mut file = match File::open_mode(&Path::new(path), Append, Write) {
         Err(why) => panic!("couldn't open: {}", why.desc),
         Ok(file) => file,
     };
@@ -74,28 +74,27 @@ fn run_test<F>(file: &str, f: F)
     write_output(file, result.as_slice());
 }
 
-#[allow(dead_code)]
 fn main() {
-    let input = read_file("/Users/zumda/Downloads/rosalind_dna(1).txt");
-    println!("{}", counting_dna(input.as_slice()));
+    //let input = read_file("/Users/zumda/Downloads/rosalind_dna(1).txt");
+    //println!("{}", counting_dna(input.as_slice()));
 
-    let input = read_file("/Users/zumda/Downloads/rosalind_rna(1).txt");
-    println!("{}", rna_transcription(input.as_slice()));
+    //let input = read_file("/Users/zumda/Downloads/rosalind_rna(1).txt");
+    //println!("{}", rna_transcription(input.as_slice()));
 
-    run_test("/Users/zumda/Downloads/rosalind_revc(1).txt", dna_reverse_complement);
+    //run_test("/Users/zumda/Downloads/rosalind_revc(1).txt", dna_reverse_complement);
 
-    println!("{}", rabbit_fib(32, 3));
+    //println!("{}", rabbit_fib(32, 3));
 
-    let input = read_full_file("/Users/zumda/Downloads/rosalind_gc.txt");
-    let (identifier, percentage) = calculate_max_gc_content(input.as_slice());
-    println!("{}\n{}", identifier, percentage);
+    //let input = read_full_file("/Users/zumda/Downloads/rosalind_gc.txt");
+    //let (identifier, percentage) = calculate_max_gc_content(input.as_slice());
+    //println!("{}\n{}", identifier, percentage);
 
-    let input = read_full_file("/Users/zumda/Downloads/rosalind_hamm.txt");
-    println!("Hamming distance: {}", hamming_distance(input.as_slice()));
+    //let input = read_full_file("/Users/zumda/Downloads/rosalind_hamm.txt");
+    //println!("Hamming distance: {}", hamming_distance(input.as_slice()));
 
-    println!("Mendel's number is {}", mendel::run(15, 24, 25));
+    //println!("Mendel's number is {}", mendel::run(15, 24, 25));
 
-    run_test("/Users/zumda/Downloads/rosalind_prot.txt", rna_translation::run);
+    //run_test("/Users/zumda/Downloads/rosalind_prot.txt", rna_translation::run);
 
     //let input = read_full_file("/Users/zumda/Downloads/rosalind_prot.txt");
     //println!("RNA Translation: {}", rna_translation::run(input.as_slice()))
