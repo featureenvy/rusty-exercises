@@ -14,6 +14,7 @@ mod hamming_distance;
 mod mendel;
 mod rna_translation;
 mod find_motifs;
+mod mortal_rabbits;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
@@ -107,6 +108,8 @@ fn main() {
     println!("{}", find_motifs::run(dna_seq, motif));
 
     println!("");
+    println!("Mortal rabbits");
+    println!("{}", mortal_rabbits::run(85, 20));
 }
 
 #[cfg(test)]
@@ -123,6 +126,7 @@ mod test {
     use mendel;
     use rna_translation;
     use find_motifs;
+    use mortal_rabbits;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -177,6 +181,12 @@ mod test {
     fn ex_9_motif_serach() {
         let result = find_motifs::run("GATATATGCATATACTT", "ATAT");
         assert_eq!("2 4 10", result);
+    }
+
+    #[test]
+    fn ex_10_mortal_rabbits() {
+        let result = mortal_rabbits::run(6, 3);
+        assert_eq!(4, result);
     }
 
     #[test]
