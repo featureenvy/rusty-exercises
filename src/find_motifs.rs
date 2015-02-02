@@ -2,10 +2,11 @@ use std::str;
 
 pub fn run(input: &str, pattern: &str) -> String {
     slice_search(input, pattern).iter()
-        .fold(String::new(),
-              |mut str, next| {
-                  str.push_str(&next.to_string());
-                  str})
+        .fold(String::new(), |mut str, next| {
+            str.push_str(&next.to_string());
+            str.push(' ');
+            str
+        }).trim().to_string()
 }
 
 fn slice_search(input: &str, pattern: &str) -> Vec<u32> {

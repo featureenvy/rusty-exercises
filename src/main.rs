@@ -100,8 +100,13 @@ fn main() {
     //println!("RNA Translation: {}", rna_translation::run(input.as_slice()))
 
     println!("Motif positions:");
-    // TODO
-    //run_test("/Users/zumda/Downloads/rosalind_subs.txt", find_motifs::run);
+    let input = read_full_file("/Users/zumda/Downloads/rosalind_subs_1_dataset.txt");
+    let mut lines = input.lines();
+    let dna_seq = lines.next().expect("First line in subs not found.");
+    let motif = lines.next().expect("Second line in subs not found");
+    println!("{}", find_motifs::run(dna_seq, motif));
+
+    println!("");
 }
 
 #[cfg(test)]
