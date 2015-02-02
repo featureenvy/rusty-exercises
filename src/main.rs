@@ -15,6 +15,8 @@ mod mendel;
 mod rna_translation;
 mod find_motifs;
 mod mortal_rabbits;
+mod expected_offsprings;
+mod consensus_profile;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
@@ -100,16 +102,24 @@ fn main() {
     //let input = read_full_file("/Users/zumda/Downloads/rosalind_prot.txt");
     //println!("RNA Translation: {}", rna_translation::run(input.as_slice()))
 
-    println!("Motif positions:");
-    let input = read_full_file("/Users/zumda/Downloads/rosalind_subs_1_dataset.txt");
-    let mut lines = input.lines();
-    let dna_seq = lines.next().expect("First line in subs not found.");
-    let motif = lines.next().expect("Second line in subs not found");
-    println!("{}", find_motifs::run(dna_seq, motif));
+    //println!("Motif positions:");
+    //let input = read_full_file("/Users/zumda/Downloads/rosalind_subs.txt");
+    //let mut lines = input.lines();
+    //let dna_seq = lines.next().expect("First line in subs not found.");
+    //let motif = lines.next().expect("Second line in subs not found");
+    //println!("{}", find_motifs::run(dna_seq, motif));
 
     println!("");
     println!("Mortal rabbits");
-    println!("{}", mortal_rabbits::run(85, 20));
+    println!("{}", mortal_rabbits::run(99, 19));
+
+    //println!("");
+    //println!("Expected offsprings");
+    //println!("{}", expected_offsprings::run(18955, 16031, 17576, 16686, 19684, 18557))
+
+    println!("");
+    println!("Consensus Profile");
+    println!("{}", consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta")));
 }
 
 #[cfg(test)]
@@ -127,6 +137,8 @@ mod test {
     use rna_translation;
     use find_motifs;
     use mortal_rabbits;
+    use expected_offsprings;
+    use consensus_profile;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -186,7 +198,19 @@ mod test {
     #[test]
     fn ex_10_mortal_rabbits() {
         let result = mortal_rabbits::run(6, 3);
-        assert_eq!(4, result);
+        assert_eq!(4f64, result);
+    }
+
+    #[test]
+    fn ex_11_expected_offsprings() {
+        let result = expected_offsprings::run(1, 0, 0, 1, 0 ,1);
+        assert_eq!(3.5, result);
+    }
+
+    #[test]
+    fn ex_12_consensus_profile() {
+        let result = consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta"));
+        assert_eq!("ATGCAACT", result);
     }
 
     #[test]
