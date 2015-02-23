@@ -37,7 +37,7 @@ pub fn run(input: &str) -> (String, f64) {
     let fasta_data = read_fasta(input);
     let id_and_percentages = fasta_data.iter()
         .fold(HashMap::new(),|mut map, data|
-              {map.insert(data.id.clone(), calc_percentage(&data.dna_strand[])); map});
+              {map.insert(data.id.clone(), calc_percentage(&data.dna_strand)); map});
     let (max_strand, max_percentage) = id_and_percentages.iter().max_by(|&(_, value)| value).unwrap();
 
     (max_strand.clone(), *max_percentage as f64 / ABSOLUTE_ERROR)

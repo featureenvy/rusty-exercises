@@ -20,8 +20,8 @@ fn unique_pairs(data: &[(u32, char)]) -> Vec<((u32, char), (u32, char))> {
         let mut pairs = Vec::new();
         pairs.push_all(&data.init().iter()
                        .map(|next| (*last, *next))
-                       .collect::<Vec<((u32, char), (u32, char))>>()[]);
-        pairs.push_all(&unique_pairs(data.init())[]);
+                       .collect::<Vec<((u32, char), (u32, char))>>());
+        pairs.push_all(&unique_pairs(data.init()));
 
         pairs
     }
@@ -47,9 +47,9 @@ fn create_alleles(dominant: u32, mixed: u32, recessive: u32) -> Vec<(u32, char)>
 
 pub fn run(dominant: u32, mixed: u32, recessive: u32) -> f32 {
     let alleles = create_alleles(dominant, mixed, recessive);
-    let unique_pairs = unique_pairs(&alleles[]);
+    let unique_pairs = unique_pairs(&alleles);
 
-    calculate_mendel(&unique_pairs[], unique_pairs.len() as u32)
+    calculate_mendel(&unique_pairs, unique_pairs.len() as u32)
 }
 
 #[cfg(test)]
@@ -59,7 +59,7 @@ mod test {
     #[test]
     fn creates_unique_pairings() {
         let input = vec![(1u32, 'a'), (2, 'a'), (3, 'b'), (4, 'b')];
-        let result = unique_pairs(&input[]);
+        let result = unique_pairs(&input);
 
         let expected = vec![((4u32, 'b'), (1u32, 'a')),
                             ((4u32, 'b'), (2u32, 'a')),

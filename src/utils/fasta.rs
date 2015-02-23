@@ -30,6 +30,7 @@ impl FastaData {
     }
 }
 
+#[cfg(test)]
 mod test {
     mod read_fasta {
         use super::super::FastaData;

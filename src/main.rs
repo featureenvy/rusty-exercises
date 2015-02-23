@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-#![feature(core,collections,io,path)]
+#![feature(core,collections,old_path,old_io)]
 
 extern crate regex;
 
@@ -44,8 +44,8 @@ fn write_output(path: &str, output: &str) {
         Ok(file) => file,
     };
 
-    println!("Wrintng output {}", output);
-    file.write_line("\n");
+    //println!("Wrintng output {}", output);
+    //file.write_line("\n");
     file.write_line(output);
 }
 
@@ -114,22 +114,27 @@ fn main() {
 
     println!("");
     println!("Mortal rabbits");
-    println!("{}", mortal_rabbits::run(99, 19));
+    println!("{}", mortal_rabbits::run(100, 17));
 
     //println!("");
     //println!("Expected offsprings");
     //println!("{}", expected_offsprings::run(18955, 16031, 17576, 16686, 19684, 18557))
 
-    println!("");
-    println!("Consensus Profile");
-    let consensus_profile = consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta"));
-    println!("{}", consensus_profile.0);
-    println!("{}", consensus_profile::print_profile(&consensus_profile.1));
+    //println!("");
+    //println!("Consensus Profile");
+    //let consensus_profile = consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta"));
+    //let consensus_profile = consensus_profile::run(&read_full_file("/Users/zumda/Downloads/rosalind_cons(3).txt"));
 
-    println!("");
-    println!("Overlap Graphs");
-    let overlap_graph = overlap_graphs::run(&read_full_file("assets/overlap_graphs.fasta"));
-    println!("{}", overlap_graph);
+    //println!("{}", consensus_profile.0);
+    //println!("{}", consensus_profile::print_profile(&consensus_profile.1));
+    //let formatted_consensus = consensus_profile::print_profile(&consensus_profile.1);
+    //write_output("/Users/zumda/Downloads/rosaling_cons_answer.txt", &format!("{}\n{}", consensus_profile.0, &formatted_consensus));
+
+    //println!("");
+    //println!("Overlap Graphs");
+    //let overlap_graph = overlap_graphs::run(&read_full_file("/Users/zumda/Downloads/rosalind_grph(1).txt"));
+    //println!("{}", overlap_graph);
+    //write_output("/Users/zumda/Downloads/rosalind_overlap_graph_answer.txt", &overlap_graph);
 }
 
 #[cfg(test)]

@@ -76,7 +76,7 @@ impl<T: Copy> MatrixTransform<T> for Vec<Vec<T>> {
 }
 
 fn print_profile_for_nucleotide(n: char, profiles: &[DnaProfile]) -> String {
-    let mut line = n.to_string();
+    let mut line = n.to_string() + ":";
     line.push(' ');
 
     let data = profiles.iter().map( |p| {
@@ -164,7 +164,7 @@ mod test {
     fn can_print_profile() {
         let input = vec![DnaProfile {a: 2, c: 3, t: 2, g: 4},
                          DnaProfile {a: 3, c: 1, t: 0, g: 5}];
-        let expected = "A 2 3\nC 3 1\nG 4 5\nT 2 0";
+        let expected = "A: 2 3\nC: 3 1\nG: 4 5\nT: 2 0";
 
         assert_eq!(expected, print_profile(&input));
     }
