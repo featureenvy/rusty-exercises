@@ -13,10 +13,6 @@ pub fn run(generations: u32, mortality: u32) -> f64 {
 
         data.push(child_rabbits + procreating_rabbits * 2f64);
 
-        let temp = 0f64;
-
-        println!("Value {:?}", data.last().unwrap());
-
         data
     });
 

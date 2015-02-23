@@ -17,13 +17,16 @@ mod find_motifs;
 mod mortal_rabbits;
 mod expected_offsprings;
 mod consensus_profile;
+mod overlap_graphs;
+mod utils;
 
 fn read_full_file(path: &str) -> String {
     let mut file = BufferedReader::new(File::open(&Path::new(path)));
 
     // Read the file contents into a string, returns `IoResult<String>`
     match file.read_to_string() {
-        Err(why) => std::string::as_string(why.desc).clone(),
+        Err(why)   => panic!("Could not open path {}. Reason: {}", path, why),
+        //Err(why) => std::string::as_string(why.desc).clone(),
         Ok(string) =>  string,
     }
 }
@@ -119,7 +122,14 @@ fn main() {
 
     println!("");
     println!("Consensus Profile");
-    println!("{}", consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta")));
+    let consensus_profile = consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta"));
+    println!("{}", consensus_profile.0);
+    println!("{}", consensus_profile::print_profile(&consensus_profile.1));
+
+    println!("");
+    println!("Overlap Graphs");
+    let overlap_graph = overlap_graphs::run(&read_full_file("assets/overlap_graphs.fasta"));
+    println!("{}", overlap_graph);
 }
 
 #[cfg(test)]
@@ -139,6 +149,7 @@ mod test {
     use mortal_rabbits;
     use expected_offsprings;
     use consensus_profile;
+    use overlap_graphs;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -210,7 +221,19 @@ mod test {
     #[test]
     fn ex_12_consensus_profile() {
         let result = consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta"));
-        assert_eq!("ATGCAACT", result);
+        assert_eq!("ATGCAACT", result.0);
+    }
+
+    #[test]
+    fn ex_13_overlap_graphs() {
+        let result = overlap_graphs::run(&read_full_file("assets/overlap_graphs.fasta"));
+        let expected = "Rosalind_0498 Rosalind_2391\nRosalind_0498 Rosalind_0442\nRosalind_2391 Rosalind_2323";
+        let exp_tester: Vec<&str> = expected.lines().collect();
+        let res_tester: Vec<&str> = result.lines().collect();
+
+        assert!(exp_tester.contains(&res_tester[0]));
+        assert!(exp_tester.contains(&res_tester[1]));
+        assert!(exp_tester.contains(&res_tester[2]));
     }
 
     #[test]
