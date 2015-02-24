@@ -18,6 +18,7 @@ mod mortal_rabbits;
 mod expected_offsprings;
 mod consensus_profile;
 mod overlap_graphs;
+mod shared_motifs;
 mod utils;
 
 fn read_full_file(path: &str) -> String {
@@ -115,6 +116,8 @@ fn main() {
     println!("");
     println!("Mortal rabbits");
     println!("{}", mortal_rabbits::run(100, 17));
+    //mortal_rabbits::run(6, 3);
+    //println!("{}", mortal_rabbits::run(6, 3));
 
     //println!("");
     //println!("Expected offsprings");
@@ -135,6 +138,10 @@ fn main() {
     //let overlap_graph = overlap_graphs::run(&read_full_file("/Users/zumda/Downloads/rosalind_grph(1).txt"));
     //println!("{}", overlap_graph);
     //write_output("/Users/zumda/Downloads/rosalind_overlap_graph_answer.txt", &overlap_graph);
+
+    println!("");
+    println!("Shared Motifs");
+    println!("{}", shared_motifs::run(&read_full_file("assets/shared_motifs.fasta")));
 }
 
 #[cfg(test)]
@@ -155,6 +162,7 @@ mod test {
     use expected_offsprings;
     use consensus_profile;
     use overlap_graphs;
+    use shared_motifs;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -227,6 +235,12 @@ mod test {
     fn ex_12_consensus_profile() {
         let result = consensus_profile::run(&read_full_file("assets/consensus_profile_test.fasta"));
         assert_eq!("ATGCAACT", result.0);
+    }
+
+    #[test]
+    fn ex_13_shared_motifs() {
+        let result = shared_motifs::run(&read_full_file("assets/shared_motifs.fasta"));
+        assert_eq!("AC", result);
     }
 
     #[test]
