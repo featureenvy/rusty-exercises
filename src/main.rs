@@ -2,6 +2,7 @@
 #![feature(core,collections,old_path,old_io)]
 
 extern crate regex;
+extern crate num;
 
 use std::old_io::{File, BufferedReader, Append, Write};
 
@@ -115,7 +116,7 @@ fn main() {
 
     println!("");
     println!("Mortal rabbits");
-    println!("{}", mortal_rabbits::run(100, 17));
+    println!("{}", mortal_rabbits::run(98, 17));
     //mortal_rabbits::run(6, 3);
     //println!("{}", mortal_rabbits::run(6, 3));
 
@@ -139,9 +140,9 @@ fn main() {
     //println!("{}", overlap_graph);
     //write_output("/Users/zumda/Downloads/rosalind_overlap_graph_answer.txt", &overlap_graph);
 
-    println!("");
-    println!("Shared Motifs");
-    println!("{}", shared_motifs::run(&read_full_file("assets/shared_motifs.fasta")));
+    //println!("");
+    //println!("Shared Motifs");
+    //println!("{}", shared_motifs::run(&read_full_file("/Users/zumda/Downloads/rosalind_lcsm(1).txt")));
 }
 
 #[cfg(test)]
@@ -163,6 +164,8 @@ mod test {
     use consensus_profile;
     use overlap_graphs;
     use shared_motifs;
+
+    use num::bigint::ToBigUint;
 
     #[test]
     fn ex_1_counting_dna() {
@@ -222,7 +225,7 @@ mod test {
     #[test]
     fn ex_10_mortal_rabbits() {
         let result = mortal_rabbits::run(6, 3);
-        assert_eq!(4f64, result);
+        assert_eq!(4.to_biguint().unwrap(), result);
     }
 
     #[test]
